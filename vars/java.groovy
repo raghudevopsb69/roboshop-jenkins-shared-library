@@ -1,14 +1,7 @@
 def call() {
   node {
 
-    stage('Checkout Code') {
-      cleanWs()
-      sh 'pwd'
-      sh 'ls'
-      git branch: 'main', url: "${env.REPO_URL}"
-      sh 'pwd'
-      sh 'ls'
-    }
+    common.checkout()
 
       stage('Compile') {
           echo 'Compile'
