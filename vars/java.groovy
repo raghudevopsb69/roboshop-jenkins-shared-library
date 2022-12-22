@@ -7,7 +7,7 @@ def call() {
       common.checkout()
       common.compile("java")
       common.codeQuality()
-      common.testCases()
+      common.testCases("java")
       common.release()
     } catch (e) {
       common.mail()
