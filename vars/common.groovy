@@ -32,7 +32,7 @@ def testCases(appType) {
     }
 
     if(appType == "python") {
-      sh 'python -m *.py || true'
+      sh 'python3 -m *.py || true'
     }
 
   }
