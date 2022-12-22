@@ -20,6 +20,26 @@ def compile(appType) {
 
 }
 
+def testCases(appType) {
+
+  stage('Unit Tests') {
+    if(appType == "java") {
+      sh 'mvn test'
+    }
+
+    if(appType == "nodejs") {
+      sh 'npm test'
+    }
+
+    if(appType == "python") {
+      sh 'python -m *.py'
+    }
+
+  }
+
+
+}
+
 
 def codeQuality() {
   stage('Code Quality') {
