@@ -7,7 +7,7 @@ def call() {
             common.checkout()
             common.codeQuality()
             common.testCases("nodejs")
-          if(binding.hasVariable('TAG_NAME')) {
+          if(env.TAG_NAME ==~ ".*") {
             common.release()
           }
         } catch (e) {
