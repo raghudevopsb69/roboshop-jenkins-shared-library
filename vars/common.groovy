@@ -54,9 +54,19 @@ def release(appType) {
       sh '''
         npm install 
         zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js schema
-        curl -v -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.13.197:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip
       '''
     }
+
+    if (appType == "java") {
+      sh '''
+        mvn package 
+        cp target/${COMPONENT}-1.0.jar ${COMPONENT}.jar
+        zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar
+      '''
+    }
+
+    sh 'curl -v -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.13.197:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip'
+
 
   }
 }
