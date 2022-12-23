@@ -65,6 +65,12 @@ def release(appType) {
       '''
     }
 
+    if (appType == "python") {
+      sh '''
+        zip -r ${COMPONENT}-${TAG_NAME}.zip *.ini *.py *.txt
+      '''
+    }
+
     sh 'curl -v -u admin:admin123 --upload-file ${COMPONENT}-${TAG_NAME}.zip http://172.31.13.197:8081/repository/${COMPONENT}/${COMPONENT}-${TAG_NAME}.zip'
 
 
