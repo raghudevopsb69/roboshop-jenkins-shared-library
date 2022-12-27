@@ -60,8 +60,8 @@ def release(appType) {
     if (appType == "java") {
       sh '''
         mvn package 
-        cp target/${COMPONENT}-1.0.jar ${COMPONENT}.jar
-        zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar
+        cp target/${COMPONENT}-1.0.jar ${COMPONENT}.jar 
+        zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar schema
       '''
     }
 
