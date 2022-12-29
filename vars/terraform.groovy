@@ -41,7 +41,7 @@ def call() {
 
     stage('Terraform Apply') {
       timeout(time:30, unit:'MINUTES') {
-        env.APPROVE_PROD = input message: 'Deploy to Production', ok: 'Continue',
+        env.APPROVE_PROD = input message: 'Deploy to Production', ok: 'Continue'
         if (env.APPROVE_PROD == 'YES'){
           env.DPROD = true
         } else {
