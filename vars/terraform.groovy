@@ -40,14 +40,7 @@ def call() {
     }
 
     stage('Terraform Apply') {
-      timeout(time:30, unit:'MINUTES') {
-        env.APPROVE_PROD = input message: 'Deploy to Production', ok: 'Continue'
-        if (env.APPROVE_PROD == 'YES'){
-          env.DPROD = true
-        } else {
-          env.DPROD = false
-        }
-      }
+      input message: 'Apply ?', ok: 'Yes'
       sh '''
         terraform apply -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
       '''
