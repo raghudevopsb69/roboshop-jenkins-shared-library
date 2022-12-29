@@ -3,6 +3,10 @@ def call() {
 
     agent any
 
+    options {
+      ansiColor('xterm')
+    }
+
     stages {
 
       stage('Terraform Plan') {
