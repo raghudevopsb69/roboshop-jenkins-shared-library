@@ -20,6 +20,10 @@ def call() {
 
     common.checkout()
 
+    if ( ! ENVIRONMENT ) {
+      print 'ENV is empty'
+    }
+
     stage('Terraform init') {
       addShortText background: '#FFFF00', borderColor: '#FFFF00', color: '', link: '', text: "Env : ${ENVIRONMENT} | Action : ${ACTION}"
       sh '''
