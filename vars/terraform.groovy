@@ -1,49 +1,40 @@
 def call() {
-  pipeline {
+  node {
 
-    agent any
+    properties([
+        parameters([
+            [$class: 'ChoiceParameterDefinition',
+             choices: '\ndev\nprod\n',
+             name: 'ENVIRONMENT',
+             description: "Choose Environment"
+            ],
+        ]),
+        parameters([
+            [$class: 'ChoiceParameterDefinition',
+             choices: '\napply\ndestroy\n',
+             name: 'ACTION',
+             description: "Choose Environment"
+            ],
+        ]),
+    ])
 
-    options {
-      ansiColor('xterm')
+    stage('Terraform init') {
+      addShortText background: '#FFFF00', borderColor: '#FFFF00', color: '', link: '', text: "Env : ${ENVIRONMENT} | Action : ${ACTION}"
+      sh '''
+        terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
+      '''
     }
 
-    parameters {
-      choice(name: 'ENVIRONMENT', choices: ['', 'dev', 'prod'], description: 'Pick Environment')
-      choice(name: 'ACTION', choices: ['', 'apply', 'destroy'], description: 'Pick Terraform Action')
+    stage('Terraform Plan') {
+      sh '''
+        terraform plan -var-file=env/${ENVIRONMENT}.tfvars
+      '''
     }
 
-    stages {
-
-      stage('Terraform Init') {
-        steps {
-          addShortText background: '#FFFF00', borderColor: '#FFFF00', color: '', link: '', text: "Env : ${ENVIRONMENT} | Action : ${ACTION}"
-          sh '''
-            terraform init -backend-config=env/${ENVIRONMENT}-backend.tfvars
-          '''
-        }
-      }
-
-      stage('Terraform Plan') {
-        steps {
-          sh '''
-            terraform plan -var-file=env/${ENVIRONMENT}.tfvars
-          '''
-        }
-      }
-
-      stage('Terraform Apply') {
-        input {
-          message "Apply?"
-          ok "Yes"
-        }
-        steps {
-          sh '''
-            terraform apply -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
-          '''
-        }
-      }
-
-
+    stage('Terraform Apply') {
+      sh '''
+        terraform apply -auto-approve -var-file=env/${ENVIRONMENT}.tfvars
+      '''
     }
 
   }
