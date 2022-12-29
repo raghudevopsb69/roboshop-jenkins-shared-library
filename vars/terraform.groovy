@@ -14,7 +14,6 @@ def call() {
              description: "Choose Action"
             ],
         ]),
-
     ])
 
     common.checkout()
