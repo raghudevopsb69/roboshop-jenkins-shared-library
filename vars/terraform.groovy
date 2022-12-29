@@ -8,14 +8,13 @@ def call() {
              name: 'ENVIRONMENT',
              description: "Choose Environment"
             ],
-        ]),
-        parameters([
             [$class: 'ChoiceParameterDefinition',
              choices: '\napply\ndestroy\n',
              name: 'ACTION',
              description: "Choose Action"
             ],
         ]),
+
     ])
 
     common.checkout()
