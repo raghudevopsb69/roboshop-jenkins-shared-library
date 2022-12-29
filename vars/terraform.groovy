@@ -21,7 +21,11 @@ def call() {
     common.checkout()
 
     if ( ! ENVIRONMENT ) {
-      print 'ENV is empty'
+      env.ENVIRONMENT = "${env.ENVIRONMENT_DEFAULT}"
+    }
+
+    if ( ! ACTION ) {
+      env.ACTION = "${env.ACTION_DEFAULT}"
     }
 
     stage('Terraform init') {
