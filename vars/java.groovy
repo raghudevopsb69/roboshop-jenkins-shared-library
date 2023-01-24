@@ -9,8 +9,7 @@ def call() {
       common.codeQuality()
       common.testCases("java")
       if(env.TAG_NAME ==~ ".*") {
-        //common.release("java")
-        common.docker()
+        common.release("java")
       }
     } catch (e) {
       common.mail()
