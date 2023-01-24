@@ -8,8 +8,7 @@ def call() {
             common.codeQuality()
             common.testCases("nodejs")
           if(env.TAG_NAME ==~ ".*") {
-            common.docker()
-            //common.release("nodejs")
+            common.release("nodejs")
           }
         } catch (e) {
             common.mail()
